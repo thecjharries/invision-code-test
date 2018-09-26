@@ -98,6 +98,19 @@ function connectAndComment(comment: string): any {
     })
 }
 
+/**
+ * Formats a URI for GitHub PR Comments
+ *
+ * @param owner {string} The repo owner
+ * @param repo {string} The repo name
+ * @param prNumber {number} The PR number
+ * @return {string} the full URI
+ * @see https://developer.github.com/v3/pulls/comments/
+ */
+function formatPrCommentUri(owner: string, repo: string, prNumber: number): string {
+    return `/repos/${owner}/${repo}/pulls/${prNumber}/comments`;
+}
+
 const eventHandler: handler = (createHandler as any)({
     path: "/webhook",
     secret: "myhashsecret",
