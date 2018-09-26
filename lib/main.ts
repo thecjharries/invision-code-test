@@ -2,7 +2,21 @@ import * as Bluebird from "bluebird";
 import * as createHandler from "github-webhook-handler";
 import { handler } from "github-webhook-handler";
 import * as http from "http";
+import { env, exit } from "process";
 import * as request from "request-promise";
+
+// I hate mixing and matching but this has no types
+// I don't have time to track them down ATM
+const github = require("octonode");
+
+// Init the token; if it DNE throw and die
+let GITHUB_TOKEN: string;
+if (env.HOOK_TOKEN) {
+    GITHUB_TOKEN = env.HOOK_TOKEN;
+} else {
+    console.error("No GitHub token found in HOOK_TOKEN");
+    exit(1);
+}
 
 // Lovingly copied from https://stackoverflow.com/a/6041965/2877698
 // with minor edits
@@ -72,6 +86,11 @@ The following URLs were parsed in the body. \`found\` indicates it was reachable
 * ${urlStatuses.join("* \n")}\
 `
 }
+
+// function connectToGithub(): any {
+//     const client = (github as any);
+//     return;
+// }
 
 const eventHandler: handler = (createHandler as any)({
     path: "/webhook",
