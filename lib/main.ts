@@ -7,6 +7,11 @@ const eventHandler: handler = (createHandler as any)({
     secret: "myhashsecret",
 });
 
+eventHandler.on("pull_request", function(event: any) {
+    console.log("Received a PR event for %s to %s",
+        event.payload.repository.name,
+        event.payload.ref)
+});
 
 eventHandler.on("push", function(event: any) {
     console.log("Received a push event for %s to %s",
