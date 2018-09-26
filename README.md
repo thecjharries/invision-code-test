@@ -7,7 +7,8 @@ Repo containing code for InVision's code test.
 * Figure out method of attack - done 1446
 * Understand webhooks (never built my own webhook app but used many) - 1320
 * Set up server ot handle webhooks - 1434
-* Parse URLs from desc
+* Parse URLs from desc - 1510
+* Check URL viability
 * Understand bot comments on GitHub (literally never touched in my life other than some reddit commenting bots research in Python years ago)
 * Figure out bot code and setup
 * Post comment

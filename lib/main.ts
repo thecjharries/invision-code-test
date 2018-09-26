@@ -1,6 +1,8 @@
-import * as http from "http";
+import * as Bluebird from "bluebird";
 import * as createHandler from "github-webhook-handler";
 import { handler } from "github-webhook-handler";
+import * as http from "http";
+import * as request from "request-promise";
 
 // Lovingly copied from https://stackoverflow.com/a/6041965/2877698
 // with minor edits
@@ -27,6 +29,35 @@ function findUrlsInPrBody(prBody: string): string[] {
     return foundUrls;
 }
 
+/**
+ * This checks the reachability of passed-in URLs and returns a promise array
+ * of the results
+ * @param urls {string[]} Array of URLs to check
+ * @return {Bluebird<string[]>} A string array of results in the form
+ *     "url: (not |)found"
+ */
+function checkUrls(urls: string[]): Bluebird<string[]> {
+    let status: boolean = false;
+    return Bluebird.map(urls, (urlToCheck) => {
+        return new Bluebird((resolve, reject) => {
+            return request
+                .get({ url: urlToCheck })
+                .then((result: any) => {
+                    console.log(`${urlToCheck} success`);
+                    return resolve(true);
+                })
+                .catch((error: any) => {
+                    console.log(`${urlToCheck} failed`);
+                    return resolve(false);
+                })
+        })
+            .then((result) => {
+                console.log(`${urlToCheck} ${result}`);
+                return `${urlToCheck}: ${!result ? 'not ' : ''}found`;
+            });
+    });
+}
+
 const eventHandler: handler = (createHandler as any)({
     path: "/webhook",
     secret: "myhashsecret",
@@ -38,7 +69,10 @@ eventHandler.on("pull_request", (event: any) => {
         event.payload.ref)
     console.log(event.payload.pull_request.body);
     let urls: string[] = findUrlsInPrBody(event.payload.pull_request.body);
-    console.log(urls);
+    checkUrls(urls)
+        .then((results) => {
+            console.log(results)
+        })
 });
 
 eventHandler.on("error", (err: any) => {
