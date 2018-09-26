@@ -58,6 +58,12 @@ function checkUrls(urls: string[]): Bluebird<string[]> {
     });
 }
 
+/**
+ * Formats the comment for the PR
+ *
+ * @param urlStatuses {string[]} An array of URLs and their reachability
+ * @return {string} the formatted comment
+ */
 function formatComment(urlStatuses: string[]): string {
     return `\
 The following URLs were parsed in the body. \`found\` indicates it was reachable\
