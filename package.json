@@ -4,7 +4,8 @@
   "description": "InVision Code Test",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "hook": "ts-node lib/main.ts"
   },
   "author": "CJ Harries <cj@wizardsoftheweb.pro> (https://wizardsoftheweb.pro/)",
   "license": "ISC",
@@ -15,6 +16,8 @@
     "bluebird": "^3.5.2",
     "github-webhook-handler": "^0.7.1",
     "request": "^2.88.0",
-    "request-promise": "^4.2.2"
+    "request-promise": "^4.2.2",
+    "ts-node": "^7.0.1",
+    "typescript": "^3.0.3"
   }
 }
