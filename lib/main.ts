@@ -87,27 +87,41 @@ The following URLs were parsed in the body. \`found\` indicates it was reachable
 `
 }
 
-// function connectToGithub(): any {
-//     const client = (github as any);
-//     return;
-// }
+function connectAndComment(comment: string): any {
+    const client = (github as any).client(GITHUB_TOKEN);
+    return new Bluebird((resolve, reject) => {
+        return client.get('/user', {}, (err: any, status: any, body: any, headers: any) => {
+            return resolve(body);
+        });
+    }).then((body: any) => {
+        console.log(body);
+    })
+}
 
 const eventHandler: handler = (createHandler as any)({
     path: "/webhook",
     secret: "myhashsecret",
 });
 
-eventHandler.on("pull_request", (event: any) => {
-    console.log("Received a PR event for %s to %s",
-        event.payload.repository.name,
-        event.payload.ref)
-    console.log(event.payload.pull_request.body);
-    let urls: string[] = findUrlsInPrBody(event.payload.pull_request.body);
-    checkUrls(urls)
-        .then((results) => {
-            console.log(results)
-        })
-});
+eventHandler.on(
+    "pull_request",
+    (event: any) => {
+        console.log("Received a PR event for %s to %s",
+            event.payload.repository.name,
+            event.payload.ref)
+        console.log(event.payload.pull_request.body);
+        console.dir(event.payload.pull_request);
+        exit(0);
+        let urls: string[] = findUrlsInPrBody(event.payload.pull_request.body);
+        if (urls) {
+            checkUrls(urls)
+                .then((results) => {
+                    return Bluebird.resolve(formatComment(results))
+                })
+                .then(connectAndComment);
+        }
+    },
+);
 
 eventHandler.on("error", (err: any) => {
     console.error("Error:", err.message)
