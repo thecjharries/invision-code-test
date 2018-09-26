@@ -17,7 +17,13 @@ $ yarn install
 
 ### Setup
 
-COMING SOON
+* Create [a personal access token](https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line/)
+* Export the token as `HOOK_TOKEN`, ie
+    ```
+    $ export HOOK_TOKEN='<token>'
+    ```
+
+    You could also add it to your `.whateverrc`.
 
 ### Launching
 

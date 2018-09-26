@@ -121,7 +121,11 @@ eventHandler.on(
     (event: any) => {
         console.log("Received a PR event for %s to %s",
             event.payload.repository.name,
-            event.payload.ref)
+            event.payload.ref,
+        )
+        let prNumber: number = event.payload.pull_request.number;
+        let prOwner: string = event.payload.pull_request.user.login;
+        let prRepo: string = event.payload.pull_request.head.repo.name;
         console.log(event.payload.pull_request.body);
         console.dir(event.payload.pull_request);
         exit(0);
@@ -131,7 +135,9 @@ eventHandler.on(
                 .then((results) => {
                     return Bluebird.resolve(formatComment(results))
                 })
-                .then(connectAndComment);
+                .then((comment: string) => {
+                    return connectAndComment(comment);
+                });
         }
     },
 );
