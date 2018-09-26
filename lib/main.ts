@@ -1,6 +1,8 @@
-import * as http from "http";
+import * as Bluebird from "bluebird";
 import * as createHandler from "github-webhook-handler";
 import { handler } from "github-webhook-handler";
+import * as http from "http";
+import * as request from "request-bluebird";
 
 // Lovingly copied from https://stackoverflow.com/a/6041965/2877698
 // with minor edits
