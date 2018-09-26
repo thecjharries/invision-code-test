@@ -2,6 +2,30 @@
 
 Repo containing code for InVision's code test.
 
+## Running
+
+To launch,
+
+```
+$ npm run hook
+# or
+$ ts-node lib/main.ts
+```
+
+[`ngrok`](https://ngrok.com/) was used to test locally. You'll need to launch the service via
+
+```
+$ ngrok http 7777
+```
+
+You'll then need to pull out the URL and set your webhook url to
+
+```
+<url from ngrok>/webhook
+```
+
+The forward slash is, unsurprisingly, important.
+
 ## Plan
 
 * Figure out method of attack - done 1446
@@ -9,7 +33,7 @@ Repo containing code for InVision's code test.
 * Set up server ot handle webhooks - 1434
 * Parse URLs from desc - 1510
 * Check URL viability - 1537
-* Write comment
+* Write comment - 1543
 * Understand bot comments on GitHub (literally never touched in my life other than some reddit commenting bots research in Python years ago)
 * Figure out bot code and setup
 * Post comment
