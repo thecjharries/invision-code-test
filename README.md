@@ -15,6 +15,12 @@ $ yarn install
 
 ## Running
 
+### Setup
+
+COMING SOON
+
+### Launching
+
 To launch,
 
 ```
