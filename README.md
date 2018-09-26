@@ -2,6 +2,17 @@
 
 Repo containing code for InVision's code test.
 
+## Installing
+
+DL the repo first via your method of choice.
+
+```
+$ cd <repo location>
+$ yarn install
+```
+
+`npm` is fine too but the author prefers `yarn` for pretentious reasons.
+
 ## Running
 
 To launch,
