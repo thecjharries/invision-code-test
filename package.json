@@ -1,0 +1,14 @@
+{
+  "name": "invision-code-test",
+  "version": "0.0.0",
+  "description": "InVision Code Test",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "CJ Harries <cj@wizardsoftheweb.pro> (https://wizardsoftheweb.pro/)",
+  "license": "ISC",
+  "dependencies": {
+    "github-webhook-handler": "^0.7.1"
+  }
+}
